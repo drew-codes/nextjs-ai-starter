@@ -8,16 +8,12 @@ const __dirname = dirname(__filename);
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  ...compat.extends(
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:tailwindcss/recommended"
-  ),
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
     rules: {
       // Turn this off if Tailwind UI class names trip the rule
-      "tailwindcss/no-custom-classname": "off",
+      'tailwindcss/no-custom-classname': 'off',
       // "tailwindcss/classnames-order": "warn",  // example override
     },
   },
