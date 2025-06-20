@@ -8,6 +8,9 @@ const __dirname = dirname(__filename);
 const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default [
+  {
+    ignores: ['src/generated/prisma/**/*'],
+  },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
