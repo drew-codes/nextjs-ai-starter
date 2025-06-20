@@ -8,7 +8,6 @@ Blazing-fast boilerplate for building AI-powered web apps on the free tiers of V
 - **Tailwind CSS 4** & Tailwind UI ready
 - **pnpm workspace**
 - **Supabase Postgres + pgvector** for RAG & embeddings
-- **GraphQL Yoga** route handler
 - **Vercel AI SDK 4.x** (upgrade-ready)
 - Auth, RLS, Prisma, and pgvector out-of-the-box
 - **ESLint 9** flat-config, Prettier, Husky, commitlint
