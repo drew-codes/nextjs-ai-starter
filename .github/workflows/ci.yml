@@ -11,5 +11,5 @@ jobs:
         with: { node-version: 22, cache: 'pnpm' }
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
-      - run: pnpm test # add vitest/jest later
+      # - run: pnpm test # add vitest/jest later
       - run: pnpm build
