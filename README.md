@@ -136,6 +136,44 @@ See `.env.example` for the full list. Minimum set:
 - **AI Model**: change the model ID in `lib/ai.ts`.
 
 ---
+## 🛡️ Local Dev Without Burning Tokens
+
+Developers often want to hack on UI & data plumbing without racking up usage bills.  Two zero‑cost strategies ship with this starter:
+
+| Mode            | How to enable                                                                       | Behaviour                                                                                                                                  |
+| --------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Mock**        | Add `AI_MODE=mock` to `.env.local`                                                  | All calls to `lib/ai.ts` return hard‑coded lorem‑ipsum text and emit a console warning.                                                    |
+| **Local Model** | Install [Ollama](https://ollama.ai/) & run `ollama run llama3` Set `AI_MODE=ollama` | The wrapper streams from `http://localhost:11434/api/chat` using the Vercel AI SDK’s **provider override**. No cloud traffic = no credits. |
+
+```ts
+// lib/ai.ts (excerpt)
+import { generateText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+
+export async function chat(messages) {
+  if (process.env.AI_MODE === 'mock') {
+    console.warn('[AI‑Mock] Returning stub response');
+    return { text: 'Mock response for local dev.' };
+  }
+  if (process.env.AI_MODE === 'ollama') {
+    return generateText({
+      model: {
+        id: 'llama3',
+        provider: 'ollama',
+        api: 'http://localhost:11434',
+      },
+      prompt: messages,
+    });
+  }
+  // default → OpenAI
+  return generateText({ model: openai('gpt-4o'), prompt: messages });
+}
+```
+
+> **Tip**: Commit `AI_MODE=mock` only to `.env.example`, never to production envs.
+
+---
+
 
 ## 🤝 Contributing
 
